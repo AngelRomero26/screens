@@ -1,74 +1,203 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from 'react';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, Image, Button } from 'react-native';
 
-export default function HomeScreen() {
+import { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+
+
+export default function DeviceScreen() {
+
+  const [notes, setNotes] = useState('');
+
+    const router = useRouter();
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+    <ScrollView contentContainerStyle={styles.container}>
+    {/* <Button title="Volver a Home" onPress={() => router.back()} /> */}
+    
+      <View style={styles.headerContainer}>
+        <View style={styles.header}>
+          <Image
+            style={[{ width: 90, height: 50 }]}
+            source={require("../../../screens/assets/images/logo_arsit.png")}
+          />
+          <Text
+            style={styles.welcome}
+            onPress={() => router.back()}
+          >Bienvenido</Text>
+        </View>
+        <Ionicons name="arrow-back" size={30} color="#2D4B41" style={styles.backIcon} />
+      </View>
+
+      <View style={styles.inputContainer}>
+        {/* <Text style={styles.label}>Nombre</Text> */}
+        <TextInput style={styles.input} placeholder="Nombre" placeholderTextColor="#29463D" />
+      </View>
+
+      <View style={styles.inputContainer}>
+        {/* <Text style={styles.label}>Cultivo</Text> */}
+        <TextInput style={styles.input} placeholder="Cultivo" placeholderTextColor="#29463D" />
+      </View>
+
+      <View style={styles.controlContainer}>
+        <Text style={styles.label}>Temperatura</Text>
+        <View style={styles.buttons}>
+          <TouchableOpacity style={styles.button}><Ionicons name="chevron-up" size={20} color="#29463D" /></TouchableOpacity>
+          <TouchableOpacity style={styles.button}><Ionicons name="chevron-down" size={20} color="#29463D" /></TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.controlContainer}>
+        <Text style={styles.label}>Humedad</Text>
+        <View style={styles.buttons}>
+          <TouchableOpacity style={styles.button}><Ionicons name="chevron-up" size={20} color="#29463D" /></TouchableOpacity>
+          <TouchableOpacity style={styles.button}><Ionicons name="chevron-down" size={20} color="#29463D" /></TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.notesContainer}>
+        <Text style={styles.notesLabel}>Notas:</Text>
+        <TextInput
+          style={styles.notesText}
+          multiline
+          placeholder=""
+          placeholderTextColor="#2D4B41"
+          value={notes}
+          onChangeText={setNotes}
         />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      </View>
+
+      <TouchableOpacity style={styles.saveButton}>
+        <Text style={styles.saveButtonText}>GUARDAR</Text>
+      </TouchableOpacity>
+
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => router.push('/(tabs)/interfaz1')}>
+          <Image source={require("../../assets/images/icons/asistencia.png")} style={styles.iconsFooter}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/(tabs)/interfaz2')}>
+          <Image source={require("../../assets/images/icons/mas.png")} style={styles.iconsFooter}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push('/')}>
+          <Image source={require("../../assets/images/icons/conexion_Mesa de trabajo 1.png")} style={styles.iconsFooter}/>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flexGrow: 1,
+    backgroundColor: '#FFFFFF',
+    alignItems: 'flex-start',
+    padding: 20,
+    paddingTop:28
+  },
+  headerContainer:{
+    flexDirection:'row',
+    alignItems:"center",
+    justifyContent:'space-between',
+    width:'100%',
+    height:50,
+    marginBottom: 50,
+    marginTop:25,
+  },
+  header:{
+    padding:8,
+  },
+  backIcon: {
+    alignSelf: 'flex-end',
+    marginTop: 12,
+    marginRight:10,
+    padding:8
+  },
+  welcome: {
+    fontSize: 16,
+    fontWeight:'500',
+    color: '#29463D',
+    marginTop:-8
+  },
+  inputContainer: {
+    width: '100%',
+    marginBottom: 40,
+  },
+  label: {
+    fontSize: 16,
+    color: '#2D4B41',
+    marginBottom: 5,
+    fontWeight:600,
+  },
+  input: {
+    backgroundColor: '#CCCCCC',
+    padding: 17,
+    borderRadius: 20,
+    color: '#29463D',
+    fontSize:15,
+    fontWeight:500,
+  },
+  controlContainer: {
+    width: '100%',
+    height:50,
+    marginBottom: 20,
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  buttons: {
+    flexDirection: 'row',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  button: {
+    backgroundColor: '#CCCCCC',
+    padding: 10,
+    marginLeft: 30,
+    borderRadius: 8,
+  },
+  notesContainer: {
+    backgroundColor: '#CCCCCC',
+    padding: 12,
+    borderRadius: 15,
+    width: '100%',
+    height:170,
+    marginBottom: 45,
+    marginTop:10,
+  },
+  notesLabel: {
+    color: '#29463D',
+    fontWeight: 'bold',
+    fontSize:17,
+  },
+  notesText: {
+    color: '#2D4B41',
+    paddingTop:5,
+    fontWeight: 'bold',
+    minHeight:60,
+    textAlignVertical: 'top',
+  },
+  saveButton: {
+    backgroundColor: '#29463D',
+    padding: 12,
+    borderRadius: 25,
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 23,
+  },
+  saveButtonText: {
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    fontSize:20,
+  },
+  iconsFooter:{
+    width:30,
+    height:30,
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
+    marginTop:5,
+    padding: 5,
   },
 });

@@ -11,24 +11,27 @@ export default function DeviceScreen() {
 
   const [notes, setNotes] = useState('');
 
-    const router = useRouter();
+  const router = useRouter();
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-    {/* <Button title="Volver a Home" onPress={() => router.back()} /> */}
-    
+      {/* <Button title="Volver a Home" onPress={() => router.back()} /> */}
+
       <View style={styles.headerContainer}>
         <View style={styles.header}>
-          <Image
-            style={[{ width: 90, height: 50 }]}
-            source={require("../../../screens/assets/images/logo_arsit.png")}
-          />
-          <Text
-            style={styles.welcome}
-            onPress={() => router.back()}
-          >Bienvenido</Text>
+          <TouchableOpacity onPress={() => router.back()}>
+            <Image
+              style={[{ width: 90, height: 50 }]}
+              source={require("../../../screens/assets/images/logo_arsit.png")}
+            />
+            <Text
+              style={styles.welcome}
+            >Bienvenido</Text>
+          </TouchableOpacity>
         </View>
-        <Ionicons name="arrow-back" size={30} color="#2D4B41" style={styles.backIcon} />
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={30} color="#2D4B41" style={styles.backIcon} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.inputContainer}>
@@ -74,14 +77,14 @@ export default function DeviceScreen() {
       </TouchableOpacity>
 
       <View style={styles.footer}>
-        <TouchableOpacity onPress={() => router.push('/(tabs)/interfaz1')}>
-          <Image source={require("../../assets/images/icons/asistencia.png")} style={styles.iconsFooter}/>
+        <TouchableOpacity onPress={() => router.push('/')}>
+          <Image source={require("../../assets/images/icons/conexion_Mesa de trabajo 1.png")} style={styles.iconsFooter} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => router.push('/(tabs)/interfaz2')}>
-          <Image source={require("../../assets/images/icons/mas.png")} style={styles.iconsFooter}/>
+          <Image source={require("../../assets/images/icons/mas.png")} style={styles.iconsFooter} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/')}>
-          <Image source={require("../../assets/images/icons/conexion_Mesa de trabajo 1.png")} style={styles.iconsFooter}/>
+        <TouchableOpacity onPress={() => router.push('/(tabs)/interfaz1')}>
+          <Image source={require("../../assets/images/icons/asistencia.png")} style={styles.iconsFooter} />
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -94,31 +97,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'flex-start',
     padding: 20,
-    paddingTop:28
+    paddingTop: 28
   },
-  headerContainer:{
-    flexDirection:'row',
-    alignItems:"center",
-    justifyContent:'space-between',
-    width:'100%',
-    height:50,
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: 'space-between',
+    width: '100%',
+    height: 50,
     marginBottom: 50,
-    marginTop:25,
+    marginTop: 25,
   },
-  header:{
-    padding:8,
+  header: {
+    padding: 8,
   },
   backIcon: {
     alignSelf: 'flex-end',
-    marginTop: 12,
-    marginRight:10,
-    padding:8
+    marginRight: 10,
+    padding: 8
   },
   welcome: {
     fontSize: 16,
-    fontWeight:'500',
+    fontWeight: '500',
     color: '#29463D',
-    marginTop:-8
+    marginTop: -8
   },
   inputContainer: {
     width: '100%',
@@ -128,19 +130,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#2D4B41',
     marginBottom: 5,
-    fontWeight:600,
+    fontWeight: 600,
   },
   input: {
     backgroundColor: '#CCCCCC',
     padding: 17,
     borderRadius: 20,
     color: '#29463D',
-    fontSize:15,
-    fontWeight:500,
+    fontSize: 15,
+    fontWeight: 500,
   },
   controlContainer: {
     width: '100%',
-    height:50,
+    height: 50,
     marginBottom: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -160,20 +162,20 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 15,
     width: '100%',
-    height:170,
+    height: 170,
     marginBottom: 45,
-    marginTop:10,
+    marginTop: 10,
   },
   notesLabel: {
     color: '#29463D',
     fontWeight: 'bold',
-    fontSize:17,
+    fontSize: 17,
   },
   notesText: {
     color: '#2D4B41',
-    paddingTop:5,
+    paddingTop: 5,
     fontWeight: 'bold',
-    minHeight:60,
+    minHeight: 60,
     textAlignVertical: 'top',
   },
   saveButton: {
@@ -187,17 +189,17 @@ const styles = StyleSheet.create({
   saveButtonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
-    fontSize:20,
+    fontSize: 20,
   },
-  iconsFooter:{
-    width:30,
-    height:30,
+  iconsFooter: {
+    width: 30,
+    height: 30,
   },
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
-    marginTop:5,
+    marginTop: 5,
     padding: 5,
   },
 });

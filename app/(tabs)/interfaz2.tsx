@@ -7,43 +7,58 @@ import { useRouter } from 'expo-router';
 export default function DeviceScreen() {
     const [notes, setNotes] = useState('');
     const router = useRouter();
+    const [devices, setDevices] = useState([
+        { id: 1, name: 'Dispositivo 1', selected: false },
+        { id: 2, name: 'Dispositivo 2', selected: false },
+        { id: 3, name: 'Dispositivo 3', selected: false },
+        { id: 4, name: 'Dispositivo 4', selected: false },
+    ]);
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
 
             <View style={styles.headerContainer}>
                 <View style={styles.header}>
-                    <Image
-                        style={[{ width: 90, height: 50 }]}
-                        source={require("../../../screens/assets/images/logo_arsit.png")}
-                    />
-                    <Text
-                        style={styles.welcome}
-                        onPress={() => router.back()}
-                    >Bienvenido</Text>
+                    <TouchableOpacity onPress={() => router.back()}>
+                        <Image
+                            style={[{ width: 90, height: 50 }]}
+                            source={require("../../../screens/assets/images/logo_arsit.png")}
+                        />
+                        <Text
+                            style={styles.welcome}
+                        >Bienvenido</Text>
+                    </TouchableOpacity>
                 </View>
+                <TouchableOpacity onPress={() => router.back()}>
                 <Ionicons name="arrow-back" size={30} color="#2D4B41" style={styles.backIcon} />
+                </TouchableOpacity>
+
             </View>
             <View style={styles.textContainer}>
-                
-                <Text style={styles.text}> Dispositivo 1 </Text>
-                <Text style={styles.text}> Dispositivo 2 </Text>
-                <Text style={styles.text}> Dispositivo 3 </Text>
-                <Text style={styles.text}> Dispositivo 4 </Text>
+
+                {devices.map((device) => (
+                    <View key={device.id} style={styles.deviceRow}>
+                        <TouchableOpacity
+                            style={[styles.checkbox, device.selected && styles.checkboxSelected]}
+                            onPress={() =>
+                                setDevices(devices.map(d => d.id === device.id ? { ...d, selected: !d.selected } : d))
+                            }
+                        />
+                        <Text style={styles.deviceName}>{device.name}</Text>
+                        <TouchableOpacity /*onPress={}*/>
+                            <Ionicons name="pencil" size={20} color="#29463D" />
+                        </TouchableOpacity>
+                    </View>
+                ))}
 
             </View>
 
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.input}
-                    placeholder="Escribe"
+                    placeholder="Nombre"
                     placeholderTextColor="#29463D"
                 />
-                <TouchableOpacity
-                //onPress={handleSend} 
-                //style={styles.iconContainer}
-                >
-                <Ionicons name="arrow-back" size={24} color="#29463D" />
-                </TouchableOpacity>
             </View>
 
             <TouchableOpacity style={styles.saveButton}>
@@ -85,7 +100,6 @@ const styles = StyleSheet.create({
     },
     backIcon: {
         alignSelf: 'flex-end',
-        marginTop: 12,
         marginRight: 10,
         padding: 8,
     },
@@ -98,30 +112,35 @@ const styles = StyleSheet.create({
     textContainer: {
         flexDirection: 'column',
         justifyContent: 'center',
-        marginBottom:30,
+        marginBottom: 30,
     },
-    text: {
-        fontSize: 17,
-        fontWeight: '400',
-        fontFamily: 'poppins medium',
-        padding:4,
+
+    deviceRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '100%',
+        height: 40,
+        backgroundColor: 'none',
+        padding: 10,
+        borderRadius: 10,
+        marginBottom: 10,
     },
-    notesContainer: {
-        padding: 12,
-        margin: 10,
-        alignItems: 'baseline'
+    checkbox: {
+        width: 20,
+        height: 20,
+        borderWidth: 2,
+        borderColor: '#29463D',
+        borderRadius: 5,
+        marginRight: 10,
     },
-    notesLabel: {
+    checkboxSelected: {
+        backgroundColor: '#29463D',
+    },
+    deviceName: {
+        flex: 1,
+        fontSize: 16,
+        fontFamily: 'Poppins-Medium',
         color: '#29463D',
-        fontWeight: '500',
-        fontSize: 15,
-    },
-    notesText: {
-        color: '#2D4B41',
-        paddingTop: 5,
-        fontWeight: '100',
-        minHeight: 60,
-        textAlignVertical: 'top',
     },
     saveButton: {
         backgroundColor: '#29463D',
@@ -142,8 +161,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#CCCCCC',
         borderRadius: 20,
         paddingHorizontal: 10,
-        marginBottom: 15,
-        marginTop: 80,
+        marginBottom: 40,
+        marginTop: 230,
     },
     input: {
         flex: 1,
@@ -154,15 +173,15 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 500,
     },
-    iconsFooter:{
-        width:30,
-        height:30,
+    iconsFooter: {
+        width: 30,
+        height: 30,
     },
     footer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: '100%',
-        marginTop:5,
+        marginTop: 5,
         padding: 5,
     },
 });

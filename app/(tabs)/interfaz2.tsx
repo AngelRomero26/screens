@@ -78,6 +78,7 @@ export default function DeviceScreen() {
     );
 }
 
+
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,

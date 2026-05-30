@@ -72,6 +72,7 @@ export default function DeviceScreen() {
           placeholder="Escribe"
           placeholderTextColor="#29463D"
         />
+        
         <TouchableOpacity
         //onPress={handleSend} 
         //style={styles.iconContainer}
